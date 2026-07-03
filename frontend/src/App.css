@@ -1,0 +1,604 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-primary: #0a0e27;
+  --bg-secondary: #141832;
+  --bg-card: rgba(255, 255, 255, 0.05);
+  --bg-card-hover: rgba(255, 255, 255, 0.08);
+  --text-primary: #e8eaf6;
+  --text-secondary: #9fa8da;
+  --accent-primary: #7c4dff;
+  --accent-secondary: #448aff;
+  --accent-gradient: linear-gradient(135deg, #7c4dff, #448aff);
+  --success: #69f0ae;
+  --warning: #ffd740;
+  --danger: #ff5252;
+  --border: rgba(255, 255, 255, 0.1);
+  --border-focus: rgba(124, 77, 255, 0.5);
+  --shadow-glow: 0 0 20px rgba(124, 77, 255, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bg-secondary);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border);
+}
+
+/* App Container */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: radial-gradient(circle at top right, rgba(68, 138, 255, 0.1), transparent 40%),
+              radial-gradient(circle at bottom left, rgba(124, 77, 255, 0.1), transparent 40%);
+}
+
+/* Auth Containers (Login & Register) */
+.auth-container {
+  width: 100%;
+  max-width: 420px;
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 3rem 2.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), var(--shadow-glow);
+  animation: slideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.auth-header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.auth-header p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Form Groups & Inputs */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-left: 0.25rem;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 1rem;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+.auth-form input, .task-form input, .task-form select, .task-form textarea {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.875rem 1rem;
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.auth-form input {
+  padding-left: 2.75rem;
+}
+
+.auth-form input:focus, .task-form input:focus, .task-form select:focus, .task-form textarea:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  background: rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 0 1px var(--border-focus), 0 0 10px rgba(124, 77, 255, 0.1);
+}
+
+.auth-form input::placeholder, .task-form input::placeholder, .task-form textarea::placeholder {
+  color: rgba(159, 168, 218, 0.5);
+}
+
+/* Buttons */
+.btn {
+  border: none;
+  border-radius: 12px;
+  padding: 0.875rem 1.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-primary {
+  background: var(--accent-gradient);
+  color: white;
+  margin-top: 1rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(124, 77, 255, 0.3);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.5s ease;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(124, 77, 255, 0.4);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--accent-secondary);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--accent-secondary);
+}
+
+.btn-link {
+  background: none;
+  padding: 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.btn-link span {
+  color: var(--accent-secondary);
+  transition: color 0.3s ease;
+}
+
+.btn-link:hover span {
+  color: var(--accent-primary);
+  text-decoration: underline;
+}
+
+.btn-small {
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  border-radius: 8px;
+}
+
+.btn-icon {
+  padding: 0.5rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+  border: 1px solid transparent;
+}
+
+.btn-icon:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
+.btn-icon.delete:hover {
+  background: rgba(255, 82, 82, 0.1);
+  color: var(--danger);
+  border-color: rgba(255, 82, 82, 0.2);
+}
+
+.btn-icon.edit:hover {
+  background: rgba(68, 138, 255, 0.1);
+  color: var(--accent-secondary);
+  border-color: rgba(68, 138, 255, 0.2);
+}
+
+/* Alerts */
+.alert {
+  padding: 1rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+.alert-error {
+  background: rgba(255, 82, 82, 0.1);
+  border: 1px solid rgba(255, 82, 82, 0.2);
+  color: #ff8a80;
+}
+
+.alert-success {
+  background: rgba(105, 240, 174, 0.1);
+  border: 1px solid rgba(105, 240, 174, 0.2);
+  color: #b9f6ca;
+}
+
+/* Dashboard Styles */
+.dashboard-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  animation: slideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.dashboard-header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.dashboard-header h1 span {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dashboard-content {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+/* Task Form Box */
+.task-form-box {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 2rem;
+  position: sticky;
+  top: 2rem;
+}
+
+.task-form-box h3 {
+  margin-bottom: 1.5rem;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.task-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.task-form select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239fa8da' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1em;
+  padding-right: 2.5rem;
+}
+
+.task-form select option {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+/* Tasks Display Area */
+.tasks-area {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.tasks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tasks-header h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.task-count {
+  background: rgba(124, 77, 255, 0.15);
+  color: #b388ff;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Task Grid */
+.tasks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--bg-card);
+  border: 1px dashed var(--border);
+  border-radius: 20px;
+  color: var(--text-secondary);
+}
+
+.empty-state-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-state h3 {
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+/* Task Card */
+.task-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: fadeInUp 0.5s ease forwards;
+  opacity: 0;
+}
+
+/* We stagger the animation slightly using nth-child in React if needed, or just let them fade in */
+
+.task-card:hover {
+  background: var(--bg-card-hover);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.task-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.task-desc {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  flex-grow: 1;
+  word-break: break-word;
+}
+
+.task-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.task-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Status Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.badge-todo {
+  background: rgba(68, 138, 255, 0.15);
+  color: #82b1ff;
+  border: 1px solid rgba(68, 138, 255, 0.2);
+}
+
+.badge-progress {
+  background: rgba(255, 215, 64, 0.15);
+  color: #ffe57f;
+  border: 1px solid rgba(255, 215, 64, 0.2);
+}
+
+.badge-done {
+  background: rgba(105, 240, 174, 0.15);
+  color: #b9f6ca;
+  border: 1px solid rgba(105, 240, 174, 0.2);
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Loading Spinner */
+.spinner {
+  display: inline-block;
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 0.8s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Global Loading State */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  gap: 1rem;
+  color: var(--text-secondary);
+}
+
+.loading-container .spinner {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-width: 3px;
+  border-top-color: var(--accent-primary);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 900px) {
+  .dashboard-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .task-form-box {
+    position: static;
+  }
+}
+
+@media (max-width: 600px) {
+  .app {
+    padding: 1rem;
+  }
+  
+  .auth-container {
+    padding: 2rem 1.5rem;
+  }
+  
+  .dashboard-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  
+  .tasks-grid {
+    grid-template-columns: 1fr;
+  }
+}
