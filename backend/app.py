@@ -6,6 +6,7 @@ from pymongo import MongoClient
 from pymongo.errors import ServerSelectionTimeoutError
 from bson import ObjectId
 from dotenv import load_dotenv
+import certifi
 
 # Load environment variables
 load_dotenv()
@@ -28,7 +29,11 @@ print(f"Attempting to connect to MongoDB using URI: {MONGO_URI[:15]}...")
 
 try:
     # Adding a serverSelectionTimeoutMS so it fails fast if MongoDB isn't running
-    client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000)
+    client = MongoClient(
+        MONGO_URI, 
+        serverSelectionTimeoutMS=5000,
+        tlsCAFile=certifi.where()
+    )
     
     # Send a ping to confirm a successful connection
     client.admin.command('ping')
